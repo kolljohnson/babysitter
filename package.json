@@ -1,0 +1,22 @@
+{
+  "name": "babysitter",
+  "version": "1.0.0",
+  "description": "JS implementation of the Babysitter Kata found at https://github.com/PillarTechnology/kata-babysitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": "git+https://github.com/kolljohnson/babysitter.git",
+  "author": "kolljohnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolljohnson/babysitter/issues"
+  },
+  "homepage": "https://github.com/kolljohnson/babysitter#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.0",
+    "babel-register": "^6.24.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
