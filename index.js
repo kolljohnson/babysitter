@@ -5,7 +5,7 @@ let calculateCharge = (startTime, endTime, bedTime) => {
     } else if(isEndTimeValid(endTime)){
 	return 'Error: End time must be at or before 4:00AM.';
     } else {
-	return true;
+	return 0;
     }
 }
 
