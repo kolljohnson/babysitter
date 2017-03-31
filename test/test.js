@@ -15,7 +15,7 @@ describe('Babysitter', () => {
 
 	it('should accept a valid start time', () => {
 	    let startTime = new Date('March 31, 2017 17:00:00');
-	    expect(babysitter.calculateCharge(startTime, endTime)).to.equal(true);
+	    expect(babysitter.calculateCharge(startTime, endTime)).to.equal(0);
 	});
     });
 
@@ -26,7 +26,7 @@ describe('Babysitter', () => {
 	
 	it('should accept an end time', () => {
 	    let endTime = new Date('March 31, 2017 21:00:00');
-	    expect(babysitter.calculateCharge(startTime, endTime)).to.equal(true);
+	    expect(babysitter.calculateCharge(startTime, endTime)).to.equal(0);
 	});
 
 	it('should only allow end time to be before or at 4:00AM', () => {
@@ -41,7 +41,7 @@ describe('Babysitter', () => {
 
 	it('should accept a bedtime', () => {
 	    let bedTime = new Date('March 31, 2017 21:00:00');
-	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(true);
+	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(0);
 	});
     });
 
