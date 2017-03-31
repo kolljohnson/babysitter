@@ -44,4 +44,15 @@ describe('Babysitter', () => {
 	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(true);
 	});
     });
+
+    describe('Calculating Charge', () => {
+	let startTime = new Date('March 31, 2017 17:00:00');
+
+	it('should return a charge', () => {
+	    let endTime = new Date('March 31, 2017 20:00:00');
+	    let bedTime = new Date('March 31, 2017 21:00:00');
+
+	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(0);
+	});
+    });
 });
