@@ -1,7 +1,7 @@
 
 function calculateCharge (startTime) {
-    if(+startTime.slice(0, 1) <= 4) {
-	return 'Error: Start date must be after 5:00PM';
+    if(startTime.getHours() <= 16) {
+	return 'Error: Start date must be at or after 5:00PM.';
     }
 }
 
