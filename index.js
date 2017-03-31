@@ -1,5 +1,5 @@
 
-let calculateCharge = (startTime, endTime) => {
+let calculateCharge = (startTime, endTime, bedTime) => {
     if(startTime.getHours() <= 16) {
 	return 'Error: Start time must be at or after 5:00PM.';
     } else if(isEndTimeValid(endTime)){
