@@ -6,12 +6,25 @@ let calculateCharge = (startTime, endTime, bedTime) => {
 	return 'Error: End time must be at or before 4:00AM.';
     } else {
 	let bedTimeRate = bedTime.getHours() - startTime.getHours();
-	return bedTimeRate * 12;
+	if(isEndTimeAfterBedtime(endTime, bedTime)) {
+	    if(endTime.getHours() === 0) {
+		let midnightRate = 24 - bedTime.getHours();
+		return bedTimeRate * 12 + midnightRate * 8;
+	    }
+	    let midnightRate = endTime.getHours() - bedTime.getHours();
+	    return bedTimeRate * 12 + midnightRate * 8;
+	} else {
+	    return bedTimeRate * 12;
+	}
     }
 }
 
 let isEndTimeValid = (endTime) => {
     return endTime.getHours() > 4 && endTime.getHours() < 17;
+}
+
+let isEndTimeAfterBedtime = (endTime, bedTime) => {
+    return (endTime.getHours() > bedTime.getHours()) || (endTime.getHours() === 0);
 }
 
 module.exports = {
