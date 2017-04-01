@@ -3,7 +3,7 @@ let calculateCharge = (startTime, endTime, bedtime) => {
     let error = isInvalidInput(startTime, endTime, bedtime);
     if(error) return error;
 
-    return calculateBedtime(bedTime, startTime, endTime);
+    return calculateBedtime(startTime, endTime, bedtime);
 }
 
 let isAtOrAfterMidnight = (endTime) => {
@@ -41,8 +41,8 @@ let calculateBedtime = (startTime, endTime, bedtime) => {
 
 let calculateAfterBedtime = (endTime, bedtime, bedtimeRate) => {
     if(isAtOrAfterMidnight(endTime)) {
-	calculateMidnightRate(endTime, bedtime, bedtimeRate);
-    }
+	return calculateMidnightRate(endTime, bedtime, bedtimeRate);
+    } 
     let midnightRate = endTime.getHours() - bedtime.getHours();
     return bedtimeRate * 12 + midnightRate * 8;
 }
@@ -50,12 +50,12 @@ let calculateAfterBedtime = (endTime, bedtime, bedtimeRate) => {
 let calculateMidnightRate = (endTime, bedtime, bedtimeRate) => {
     let midnightRate = 24 - bedtime.getHours();
     if(isAfterMidnight(endTime)) {
-	calculateAfterMidnightRate(endTime, bedtime, bedtimeRate);
+	return calculateAfterMidnightRate(endTime, bedtimeRate, midnightRate);
     }
     return bedtimeRate * 12 + midnightRate * 8;    
 }
 
-let calculateAfterMidnightRate = (endTime, bedtime, bedtimeRate) => {
+let calculateAfterMidnightRate = (endTime, bedtimeRate, midnightRate) => {
     let afterMidnightRate = endTime.getHours() * 16;
     return bedtimeRate * 12 + midnightRate * 8 + afterMidnightRate;
 }
