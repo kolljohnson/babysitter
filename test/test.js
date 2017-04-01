@@ -63,5 +63,10 @@ describe('Babysitter', () => {
 	    let endTime = new Date('March 31, 2017 00:00:00');
 	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(72);
 	});
+
+	it('should pay $16/hour after midnight till end of job', () => {
+	    let endTime = new Date('March 31, 2017 02:00:00');
+	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(104);
+	});
     });
 });
