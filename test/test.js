@@ -68,5 +68,10 @@ describe('Babysitter', () => {
 	    let endTime = new Date('March 31, 2017 02:00:00');
 	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(104);
 	});
+
+	it('does not calculate fractional hours', () => {
+	    let endTime = new Date('March 31, 2017 01:45:00');
+	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(88);
+	});
     });
 });
