@@ -2,13 +2,8 @@
 let calculateCharge = (startTime, endTime, bedtime) => {
     let error = isInvalidInput(startTime, endTime, bedtime);
     if(error) return error;
-    
-    let bedtimeRate = bedtime.getHours() - startTime.getHours();
-    if(isEndTimeAfterBedtime(endTime, bedtime)) {
-	return calculateAfterBedtime(endTime, bedtime, bedtimeRate);
-    } else {
-	return bedtimeRate * 12;
-    }
+
+    return calculateBedtime(bedTime, startTime, endTime);
 }
 
 let isAtOrAfterMidnight = (endTime) => {
@@ -35,17 +30,34 @@ let isInvalidInput = (startTime, endTime, bedtime) => {
     }
 }
 
+let calculateBedtime = (startTime, endTime, bedtime) => {
+    let bedtimeRate = bedtime.getHours() - startTime.getHours();
+    if(isEndTimeAfterBedtime(endTime, bedtime)) {
+	return calculateAfterBedtime(endTime, bedtime, bedtimeRate);
+    } else {
+	return bedtimeRate * 12;
+    }
+}
+
 let calculateAfterBedtime = (endTime, bedtime, bedtimeRate) => {
     if(isAtOrAfterMidnight(endTime)) {
-	let midnightRate = 24 - bedtime.getHours();
-	if(isAfterMidnight(endTime)) {
-	    let afterMidnightRate = endTime.getHours() * 16;
-	    return bedtimeRate * 12 + midnightRate * 8 + afterMidnightRate;
-	}
-	return bedtimeRate * 12 + midnightRate * 8;
+	calculateMidnightRate(endTime, bedtime, bedtimeRate);
     }
     let midnightRate = endTime.getHours() - bedtime.getHours();
     return bedtimeRate * 12 + midnightRate * 8;
+}
+
+let calculateMidnightRate = (endTime, bedtime, bedtimeRate) => {
+    let midnightRate = 24 - bedtime.getHours();
+    if(isAfterMidnight(endTime)) {
+	calculateAfterMidnightRate(endTime, bedtime, bedtimeRate);
+    }
+    return bedtimeRate * 12 + midnightRate * 8;    
+}
+
+let calculateAfterMidnightRate = (endTime, bedtime, bedtimeRate) => {
+    let afterMidnightRate = endTime.getHours() * 16;
+    return bedtimeRate * 12 + midnightRate * 8 + afterMidnightRate;
 }
 
 module.exports = {
