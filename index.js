@@ -10,12 +10,12 @@ let isBeforeBedtime = (endTime, bedtime) => {
     return (endTime.getHours() < bedtime.getHours()) && !isEndTimeAfterBedtime(endTime, bedtime);
 }
 
-let isAtOrAfterMidnight = (endTime) => {
-    return endTime.getHours() < 4 && endTime.getHours() >= 0;
+let isAtOrAfterMidnight = (time) => {
+    return time.getHours() < 4 && time.getHours() >= 0;
 }
 
-let isAfterMidnight = (endTime) => {
-    return endTime.getHours() < 4 && endTime.getHours() > 0; 
+let isAfterMidnight = (time) => {
+    return time.getHours() < 4 && time.getHours() > 0; 
 }
 
 let isEndTimeInvalid = (endTime) => {
