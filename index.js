@@ -32,7 +32,10 @@ let isInvalidInput = (startTime, endTime, bedtime) => {
 
 let calculateBedtime = (startTime, endTime, bedtime) => {
     let bedtimeRate = bedtime.getHours() - startTime.getHours();
-    if(isEndTimeAfterBedtime(endTime, bedtime)) {
+    if ((endTime.getHours() < bedtime.getHours()) && !isEndTimeAfterBedtime(endTime, bedtime)) {
+	return (endTime.getHours() - startTime.getHours()) * 12;
+    }
+    else if(isEndTimeAfterBedtime(endTime, bedtime)) {
 	return calculateAfterBedtime(endTime, bedtime, bedtimeRate);
     } else {
 	return bedtimeRate * 12;
