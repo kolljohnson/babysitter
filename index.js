@@ -31,6 +31,8 @@ let isInvalidInput = (startTime, endTime, bedtime) => {
 	return 'Error: Start time must be at or after 5:00PM.';
     } else if(isEndTimeInvalid(endTime)){
 	return 'Error: End time must be at or before 4:00AM.';
+    } else if(isAfterMidnight(bedtime)) {
+	return 'Error: bedtime must be at or before midnight.';
     }
 }
 
