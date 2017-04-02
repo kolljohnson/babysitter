@@ -36,6 +36,7 @@ describe('Babysitter', () => {
     });
 
     describe('BedTime', () => {
+	
 	let startTime = new Date('March 31, 2017 17:00:00');
 	let endTime = new Date('March 31, 2017 21:00:00');
 
@@ -51,7 +52,7 @@ describe('Babysitter', () => {
 	
 	it('should return a charge', () => {
 	    let endTime = new Date('March 31, 2017 20:00:00');
-	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(48);
+	    expect(babysitter.calculateCharge(startTime, endTime, bedTime)).to.equal(36);
 	});
 
 	it('should pay $12/hour from start-time to bedtime', () => {
