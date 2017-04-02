@@ -44,6 +44,11 @@ describe('Babysitter', () => {
 	    let bedtime = new Date('March 31, 2017 21:00:00');
 	    expect(calculatePay(startTime, endTime, bedtime)).to.equal(48);
 	});
+
+	it('should not allow a bedtime after 12:00AM', () => {
+	    let bedtime = new Date('April 1, 2017 02:00:00');
+	    expect(calculatePay(startTime, endTime, bedtime)).to.equal('Error: bedtime must be at or before midnight.');
+	});
     });
 
     describe('Calculating Charge', () => {
