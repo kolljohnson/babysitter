@@ -1,3 +1,6 @@
+let beforeBedtimeRate = 12;
+let beforeMidnightRate = 8;
+let afterMidnightRate = 16;
 
 let calculatePay = (startTime, endTime, bedtime) => {
     let error = isInvalidInput(startTime, endTime, bedtime);
@@ -18,6 +21,10 @@ let isAfterMidnight = (time) => {
     return time.getHours() < 4 && time.getHours() > 0; 
 }
 
+let isStartTimeInvalid = (startTime) => {
+    return startTime.getHours() <= 16;
+}
+
 let isEndTimeInvalid = (endTime) => {
     return endTime.getHours() > 4 && endTime.getHours() < 17;
 }
@@ -27,7 +34,7 @@ let isEndTimeAfterBedtime = (endTime, bedtime) => {
 }
 
 let isInvalidInput = (startTime, endTime, bedtime) => {
-    if(startTime.getHours() <= 16) {
+    if(isStartTimeInvalid(startTime)) {
 	return 'Error: Start time must be at or after 5:00PM.';
     } else if(isEndTimeInvalid(endTime)){
 	return 'Error: End time must be at or before 4:00AM.';
@@ -38,44 +45,44 @@ let isInvalidInput = (startTime, endTime, bedtime) => {
 
 let calculateBeforeBedtime = (startTime, endTime, bedtime) => {
     if (isBeforeBedtime(endTime, bedtime)) {
-	return (endTime.getHours() - startTime.getHours()) * 12;
+	return (endTime.getHours() - startTime.getHours()) * beforeBedtimeRate;
     } else {
 	return calculateBedtime(startTime, endTime, bedtime);
     }
 }
 
 let calculateBedtime = (startTime, endTime, bedtime) => {
-    let bedtimeRate = bedtime.getHours() - startTime.getHours();
+    let bedtimeTotal = bedtime.getHours() - startTime.getHours();
     if(isEndTimeAfterBedtime(endTime, bedtime)) {
-	return calculateAfterBedtime(endTime, bedtime, bedtimeRate);
+	return calculateAfterBedtime(endTime, bedtime, bedtimeTotal);
     } else {
-	return bedtimeRate * 12;
+	return bedtimeTotal * beforeBedtimeRate;
     }
 }
 
-let calculateAfterBedtime = (endTime, bedtime, bedtimeRate) => {
+let calculateAfterBedtime = (endTime, bedtime, bedtimeTotal) => {
     if(isAtOrAfterMidnight(endTime)) {
-	return calculateMidnight(endTime, bedtime, bedtimeRate);
+	return calculateMidnight(endTime, bedtime, bedtimeTotal);
     } 
-    let beforeMidnightRate = endTime.getHours() - bedtime.getHours();
-    return afterBedtimeRate(bedtimeRate, beforeMidnightRate);
+    let beforeMidnightTotal = endTime.getHours() - bedtime.getHours();
+    return afterBedtimeTotal(bedtimeRate, beforeMidnightTotal);
 }
 
-let calculateMidnight = (endTime, bedtime, bedtimeRate) => {
-    let midnightRate = 24 - bedtime.getHours();
+let calculateMidnight = (endTime, bedtime, bedtimeTotal) => {
+    let midnightTotal = 24 - bedtime.getHours();
     if(isAfterMidnight(endTime)) {
-	return calculateAfterMidnight(endTime, bedtimeRate, midnightRate);
+	return calculateAfterMidnight(endTime, bedtimeTotal, midnightTotal);
     }
-    return afterBedtimeRate(bedtimeRate, midnightRate);    
+    return afterBedtimeTotal(bedtimeTotal, midnightTotal);    
 }
 
-let calculateAfterMidnight = (endTime, bedtimeRate, midnightRate) => {
-    let afterMidnightRate = endTime.getHours() * 16;
-    return afterBedtimeRate(bedtimeRate, midnightRate) + afterMidnightRate;
+let calculateAfterMidnight = (endTime, bedtimeTotal, midnightTotal) => {
+    let afterMidnightTotal = endTime.getHours() * afterMidnightRate;
+    return afterBedtimeTotal(bedtimeTotal, midnightTotal) + afterMidnightTotal;
 }
 
-let afterBedtimeRate = (bedtimeRate, midnightRate) => {
-    return bedtimeRate * 12 + midnightRate * 8;    
+let afterBedtimeTotal = (bedtimeTotal, midnightTotal) => {
+    return (bedtimeTotal * beforeBedtimeRate) + (midnightTotal * beforeMidnightRate);    
 }
 
 module.exports = {
